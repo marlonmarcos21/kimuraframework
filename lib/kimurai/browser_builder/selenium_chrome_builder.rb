@@ -30,7 +30,7 @@ module Kimurai::BrowserBuilder
         end
 
         # See all options here: https://seleniumhq.github.io/selenium/docs/api/rb/Selenium/WebDriver/Chrome/Options.html
-        driver_options = Selenium::WebDriver::Chrome::Options.new(opts)
+        driver_options = Selenium::WebDriver::Chrome::Options.new(**opts)
 
         # Window size
         if size = @config[:window_size].presence
@@ -109,9 +109,7 @@ module Kimurai::BrowserBuilder
           end
         end
 
-        chromedriver_path = Kimurai.configuration.chromedriver_path || "/usr/local/bin/chromedriver"
-        service = Selenium::WebDriver::Service.chrome(path: chromedriver_path)
-        Capybara::Selenium::Driver.new(app, browser: :chrome, options: driver_options, service: service)
+        Capybara::Selenium::Driver.new(app, browser: :chrome, options: driver_options)
       end
 
       # Create browser instance (Capybara session)

@@ -1,3 +1,4 @@
+require 'uri'
 require_relative 'base/saver'
 require_relative 'base/storage'
 
@@ -201,7 +202,7 @@ module Kimurai
       visited = delay ? browser.visit(url, delay: delay) : browser.visit(url)
       return unless visited
 
-      public_send(handler, browser.current_response(response_type), { url: url, data: data })
+      public_send(handler, browser.current_response(response_type), url: url, data: data)
     end
 
     def console(response = nil, url: nil, data: {})
@@ -236,10 +237,11 @@ module Kimurai
     ###
 
     def add_event(scope = :custom, event)
-      if self.with_info
-        self.class.add_event(scope, event)
+      unless self.with_info
+        raise "It's allowed to use `add_event` only while performing a full run (`.crawl!` method)"
       end
 
+      self.class.add_event(scope, event)
       logger.info "Spider: new event (scope: #{scope}): #{event}" if scope == :custom
     end
 
