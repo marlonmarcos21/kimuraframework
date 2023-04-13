@@ -12,6 +12,11 @@ require_relative 'kimurai/core_ext/string'
 require_relative 'kimurai/core_ext/array'
 require_relative 'kimurai/core_ext/hash'
 
+require_relative 'kimurai/browser_builder/mechanize_builder'
+require_relative 'kimurai/browser_builder/poltergeist_phantomjs_builder'
+require_relative 'kimurai/browser_builder/selenium_chrome_builder'
+require_relative 'kimurai/browser_builder/selenium_firefox_builder'
+
 require_relative 'kimurai/browser_builder'
 require_relative 'kimurai/base_helper'
 require_relative 'kimurai/pipeline'
